@@ -15,8 +15,7 @@
     .STARTUP
 repetición:
     PutStr      pregunta1
-    GetLInt     EDX
-    mov         EAX,EDX
+    GetLInt     EAX
     PutStr      pregunta2
     GetLInt     EDX
     add         EAX,EDX
