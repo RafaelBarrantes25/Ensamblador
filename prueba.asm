@@ -36,15 +36,15 @@ convMinus:
         jl    invertir
         cmp   al, 'Z'                    ;Si es mayor a Z, no es mayúscula
         jg    invertir
-        add   al,32
-        add   byte [esi], 32
+        add   al,32                      ;Si sí es mayúscula, añade 32, que es la diferencia para minúscula
+        add   byte [esi], 32             ;Modifica el texto original para la comparación al final
 invertir:
-        mov   byte [edi], al
-        dec   esi
-        inc   edi
-        loop  convMinus
+        mov   byte [edi], al             ;Mete la última letra en el texto invertido
+        dec   esi                        ;Disminuye el puntero original a la letra anterior
+        inc   edi                        ;Aumenta el puntero del invertido al sigueinte byte
+        loop  convMinus                  ;Loop según el ecx para el número de letras
         jmp   finalizarString
-noTexto:
+noTexto:                                 ;Si no ingresa texto, se acaba
         PutStr vacío
         jmp    final
 finalizarString:
