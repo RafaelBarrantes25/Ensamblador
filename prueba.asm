@@ -1,30 +1,70 @@
 %include "io.mac"
 
 .DATA
-        pregunta1   db      "Ingrese el primer número: ",0
-        pregunta2   db      "Ingrese el segundo número: ",0
-        suma        db      "La suma es: ",0
-        overf       db      "Error, hubo overflow",0
-
+        pregunta     db      "Ingrese caracteres, máximo 200. Presione enter al terminar: ",0
+        vacío        db      "No ingresó texto.",0
+        síPalíndromo db      "El texto sí es un palíndromo",0
+        noPalíndromo db      "El texto no es un palíndromo",0
 .UDATA
-        número1     resb    1
-        número2     resb    1
-        resultado   resb    1
-
+        textoDelUsuario     resb    200
+        textoInvertido      resb    200
+        
 .CODE
-    .STARTUP
-repetición:
-    PutStr      pregunta1
-    GetLInt     EAX
-    PutStr      pregunta2
-    GetLInt     EDX
-    add         EAX,EDX
-    jno correcto
-    PutStr      overf
-    nwln
-    jmp         repetición
-correcto:
-    PutStr      suma
-    PutLInt     EAX
-    nwln
-    .EXIT
+.STARTUP
+        PutStr      pregunta
+        GetStr      textoDelUsuario
+        mov   esi,  textoDelUsuario
+        mov   edi,  textoInvertido
+        mov   ecx,  0
+        mov   edx,  0
+contar_caracteres:
+        cmp   byte [esi], 0              ;Revisa si termina el string al comparar con 0
+        je    revisiónVacío
+        inc   ecx                        ;Incrementa ecx para que contenga el número de caracteres para el loop
+        inc   esi                        ;esi apunta al byte nulo al final
+        jmp   contar_caracteres
+revisiónVacío:                           ;Caso especial por si no se ingresa texto
+        cmp   ecx,0                      ;Si el cx es 0, es que no ingresó texto
+        je    noTexto
+        mov   ebx, ecx                   ;Guarda largo del texto para el loop de comparación de strings
+        dec   esi                        ;Se le resta 1 a esi para que apunte al último caracter, no al nulo
+        jmp   convMinus
+
+convMinus:
+        mov   al, byte [esi]             ;Mueve la primera letra del textoDelUsuario al al
+        cmp   al, 'A'                    ;Si es menor a A, no es mayúscula
+        jl    invertir
+        cmp   al, 'Z'                    ;Si es mayor a Z, no es mayúscula
+        jg    invertir
+        add   al,32
+        add   byte [esi], 32
+invertir:
+        mov   byte [edi], al
+        dec   esi
+        inc   edi
+        loop  convMinus
+        jmp   finalizarString
+noTexto:
+        PutStr vacío
+        jmp    final
+finalizarString:
+        mov   byte [edi],0
+        mov   ecx, ebx
+        mov   edi, textoDelUsuario
+        mov   esi, textoInvertido
+compararStrings:
+        mov   al, byte [esi]
+        cmp   byte [edi], al
+        jne   negativo
+        inc   edi
+        inc   esi
+        loop  compararStrings
+        jmp   positivo
+positivo:
+        PutStr   síPalíndromo
+        jmp      final
+negativo:
+        PutStr   noPalíndromo
+        jmp      final
+final:
+.EXIT
