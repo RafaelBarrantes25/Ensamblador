@@ -52,7 +52,7 @@ imprimirNúmeros:
         nwln
         add           eax,[esi]
         add           esi,4
-        loop imprimirNúmeros
+        loop          imprimirNúmeros
         PutStr        sumaTotal
         PutLInt       eax
 .EXIT
