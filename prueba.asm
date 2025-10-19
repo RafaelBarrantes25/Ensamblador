@@ -3,6 +3,9 @@
 TAMAÑO_PALABRA  EQU 10
 MÁXIMO_PALABRAS EQU 10
 TAMAÑO_TOTAL    EQU 11
+ORDENADO        EQU 0
+DESORDENADO     EQU 1
+
 .DATA
         pregunta1   db     "Inserte un máximo de 10 palabras de 10 letras cada una",0
         pregunta2   db     "Envíe una palabra vacía para terminar.",0
@@ -64,7 +67,7 @@ convMinus:
     mov      esi,textos
 convMinus2:
     cmp ecx,0
-    je bubbleSort
+    je imprimir1
     mov      al,[esi]
     cmp   al,0
     je mantener
@@ -78,6 +81,8 @@ mantener:
     inc   esi
     dec ecx
     jmp convMinus2
+
+
 
 imprimir1:
     mov ecx,edx     ;edx lleva la cuenta de las palabras, se pasa a ecx para loop

@@ -45,21 +45,21 @@ invertir:
         loop  convMinus                  ;Loop según el ecx para el número de letras
         jmp   finalizarString
 noTexto:                                 ;Si no ingresa texto, se acaba
-        PutStr vacío
-        jmp    final
+        PutStr vacío                     ;Mensaje por si no inserta nada
+        jmp    final                     ;Se acaba
 finalizarString:
-        mov   byte [edi],0
-        mov   ecx, ebx
-        mov   edi, textoDelUsuario
-        mov   esi, textoInvertido
+        mov   byte [edi],0               ;Se pone un 0 al final del string, para que no dé error
+        mov   ecx, ebx                   ;Se ajusta el ecx para el loop de comparar
+        mov   edi, textoDelUsuario       ;Se ponen los punteros, uno en cada
+        mov   esi, textoInvertido        ;Texto para compararlos
 compararStrings:
-        mov   al, byte [esi]
-        cmp   byte [edi], al
-        jne   negativo
-        inc   edi
-        inc   esi
-        loop  compararStrings
-        jmp   positivo
+        mov   al, byte [esi]             ;Mueve el primer caracter del texto invertido a AL
+        cmp   byte [edi], al             ;Compara los primeros caracteres de los textos
+        jne   negativo                   ;Si es distinto, no es palíndromo
+        inc   edi                        ;Aumentan registros al
+        inc   esi                        ;Siguiente caracter
+        loop  compararStrings            ;Se loopea por todos los caracteres
+        jmp   positivo                   ;Si llega al final es que sí es palíndromo
 positivo:
         PutStr   síPalíndromo
         jmp      final
