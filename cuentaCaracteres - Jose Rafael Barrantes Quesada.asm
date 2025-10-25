@@ -1,3 +1,11 @@
+;Cuenta Caracteres
+;Pide un input al usuario y cuenta cuántas veces ingresó cada caracter
+;
+;ITCR Cartago  -  Escuela de Ingeniería en Computación
+;IC-3101 Arquitectura de Computadoras
+;Tarea 3  -  18 de Octubre del 2025  -  Segundo semestre del 2025
+;Jose Rafael Barrantes Quesada 2025122443
+;Profesor Esteban Arias Méndez
 %include "io.mac"
 
 .DATA
@@ -26,7 +34,7 @@
             jmp         preContar
 
 preConvertir:
-            mov         ebx,texto
+            lea         ebx,texto
 convertir:
             mov         al, [ebx]       ;mueve el caracter a AL
             cmp         al,0            ;revisa si es nulo
@@ -35,11 +43,11 @@ convertir:
             jl          noMinúscula    ;es que no es minúscula
             cmp         AL,'z'          ;si el caracter es mmayor que z
             jg          noMinúscula    ;tampoco es minúscula
-minúscula:
-            add         AL, 'A'-'a'     ;convierte a mayúscula
-            mov         [ebx],al        ;Se mueve el valor 
+            sub         al,32                  ;Diferencia entre mayúsculas y minúsculas utf-8
+            mov         [ebx],al               ;Se guarda el cambio
             inc         ebx
             jmp         convertir
+
 noMinúscula:
             inc         ebx
             jmp         convertir       ;procesa el siguiente

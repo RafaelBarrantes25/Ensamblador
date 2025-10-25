@@ -1,3 +1,11 @@
+;Palíndromo
+;Pide un input al usuario y verifica si es palíndromo
+;
+;ITCR Cartago  -  Escuela de Ingeniería en Computación
+;IC-3101 Arquitectura de Computadoras
+;Tarea 3  -  18 de Octubre del 2025  -  Segundo semestre del 2025
+;Jose Rafael Barrantes Quesada 2025122443
+;Profesor Esteban Arias Méndez
 %include "io.mac"
 
 .DATA

@@ -1,3 +1,11 @@
+;Suma 20 números
+;Función: Pide 20 números al usuario y los suma
+;
+;ITCR Cartago  -  Escuela de Ingeniería en Computación
+;IC-3101 Arquitectura de Computadoras
+;Tarea 3  -  18 de Octubre del 2025  -  Segundo semestre del 2025
+;Jose Rafael Barrantes Quesada 2025122443
+;Profesor Esteban Arias Méndez
 %include "io.mac"
 
 .DATA
